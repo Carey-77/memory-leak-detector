@@ -1,0 +1,50 @@
+# Memory Leak Detection Agent Configuration
+
+monitoring:
+  # How often to check process memory (seconds)
+  interval_seconds: 10
+  
+  # Number of samples to keep in moving window
+  window_size: 30
+  
+  # Minimum samples before analysis begins
+  min_samples: 10
+
+detection:
+  # Standard deviations for anomaly detection (higher = less sensitive)
+  anomaly_threshold: 2.5
+  
+  # Minimum MB/min growth rate to consider anomalous
+  growth_threshold_mb_per_min: 0.5
+  
+  # Memory % threshold for crash prediction
+  crash_memory_percent: 90.0
+  
+  # Coefficient of variation threshold for normal vs leak pattern
+  # Lower = stricter (0.3 = 30% variance is normal)
+  normal_variance_ratio: 0.3
+
+alerting:
+  # Minimum seconds between alerts for same process (prevents spam)
+  cooldown_seconds: 300
+  
+  # Maximum alerts per process per session
+  max_alerts_per_process: 10
+
+logging:
+  # Main log file path
+  log_file: memory_monitor.log
+  
+  # JSON alert log path
+  alert_log: memory_alerts.json
+  
+  # Log level: DEBUG, INFO, WARNING, ERROR
+  log_level: INFO
+
+targets:
+  # Specific PIDs to monitor (empty = monitor all)
+  pids: []
+  
+  # Process names to monitor (empty = monitor all)
+  # Examples: [python, node, postgres, java]
+  process_names: []
